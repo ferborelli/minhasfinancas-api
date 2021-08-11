@@ -1,6 +1,8 @@
 package com.borelli.minhasfinancas.service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import com.borelli.minhasfinancas.model.entity.Lancamento;
 import com.borelli.minhasfinancas.model.enums.StatusLancamento;
@@ -8,9 +10,19 @@ import com.borelli.minhasfinancas.model.enums.StatusLancamento;
 public interface LancamentoService {
 	
 	Lancamento salvar(Lancamento lancamento);
+	
 	Lancamento Atualizar(Lancamento lancamento);
+	
 	void deletar(Lancamento lancamento);
+	
 	List<Lancamento> buscar( Lancamento lancamentoFiltro );
+	
 	void atualizarStatus( Lancamento lancamento, StatusLancamento status);
+	
+	void validar(Lancamento lancamento);
+	
+	Optional<Lancamento> obterPorId(Long id);
+	
+	BigDecimal obterSaldoPorUsuario(Long id);
 
 }

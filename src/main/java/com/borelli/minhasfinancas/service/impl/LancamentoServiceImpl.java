@@ -3,6 +3,7 @@ package com.borelli.minhasfinancas.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.borelli.minhasfinancas.exception.RegraNegocioException;
 import com.borelli.minhasfinancas.model.entity.Lancamento;
 import com.borelli.minhasfinancas.model.enums.StatusLancamento;
+import com.borelli.minhasfinancas.model.enums.TipoLancamento;
 import com.borelli.minhasfinancas.model.repository.LancamentoRepository;
 import com.borelli.minhasfinancas.service.LancamentoService;
 
@@ -95,6 +97,31 @@ public class LancamentoServiceImpl implements LancamentoService {
 		}
 		
 	}
+
+	@Override
+	public Optional<Lancamento> obterPorId(Long id) {
+ 		return repository.findById(id);
+	}
+
+	@Override
+	@Transactional 
+	public BigDecimal obterSaldoPorUsuario(Long id) {
+
+		BigDecimal receitas = repository.obterSaldoPorLancamentoEUsuario(id, TipoLancamento.RECEITA);
+		BigDecimal despesas = repository.obterSaldoPorLancamentoEUsuario(id, TipoLancamento.DESPESA);
+
+		if(receitas == null ) {
+			receitas = BigDecimal.ZERO;
+		}
+		
+		if(despesas == null ) {
+			despesas = BigDecimal.ZERO;
+		}
+		
+		return receitas.subtract(despesas);
+	}
+
+	 
 	
 	 
 }
