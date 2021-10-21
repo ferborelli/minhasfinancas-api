@@ -14,6 +14,6 @@ public class MinhasfinancasApplication implements WebMvcConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(MinhasfinancasApplication.class, args);
 	}
- 
+  
 	 
 }
