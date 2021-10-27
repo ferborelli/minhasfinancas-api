@@ -32,10 +32,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 			throw  new ErroAutenticacao("Usúario não encontrado para o email informado.");
 		}
 		
-		boolean senhasBatem = encoder.matches(senha.trim(), usuario.get().getSenha().trim());
+		boolean senhasBatem = encoder.matches(senha, usuario.get().getSenha());
 		
 		if(!senhasBatem) {			
-			throw new ErroAutenticacao("Senha inválida." + senha.trim() + '-' + usuario.get().getSenha());			
+			throw new ErroAutenticacao("Senha inválida.");			
 		}
 		
 		return usuario.get();
